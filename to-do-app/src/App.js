@@ -23,8 +23,16 @@ function App() {
     ])
     setTaskTitle('');
   }
+  const deleteTaskHandler = (taskID)=>{
+    setTasks(tasks.filter((task)=>{
+      return task.id!== taskID;
+    }));
+  }
   const taskList = tasks.map((task)=>{
-      return <li key={task.id}>{task.title} <span style={{color:'Blue'}}>Edit</span>  <span style={{color:'red'}}>Delete</span></li>
+      return <li key={task.id}>
+        <span>{task.title} </span>
+        <span style={{color:'Blue'}}>Edit</span>  
+        <span onClick={()=>{deleteTaskHandler(task.id)}} style={{color:'red'}}>Delete</span></li>
   })
   return <>
     <form onSubmit={formSubmitHandler}>
