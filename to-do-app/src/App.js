@@ -1,7 +1,5 @@
 import "./App.css";
 import { useState } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
 const allTasks = [];
@@ -44,7 +42,7 @@ function App() {
           }}
           style={{ color: "red" }}
         >
-          <FontAwesomeIcon icon={faTrash} />
+          Delete
         </span>
       </li>
     );
