@@ -4,6 +4,10 @@ body{
   min-height: 100vh;
   background-color: azure;
 }
+button{
+  cursor: pointer;
+  border:none;
+}
 .form-container{
   height: 100vh;
   display: flex;
