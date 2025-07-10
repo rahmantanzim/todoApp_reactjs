@@ -1,43 +1,98 @@
-body{
-  margin:0;
-  padding:0;
+/* Reset & base styles */
+body {
+  margin: 0;
+  padding: 0;
   min-height: 100vh;
-  background-color: azure;
+  background: linear-gradient(135deg, #f0f8ff, #e0eafc);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-button{
-  cursor: pointer;
-  border:none;
-}
-.form-container{
-  height: 100vh;
+
+/* Center everything */
+.form-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  padding-top: 50px;
 }
 
-.form-container form{
-  padding: 40px;
+/* Form styles */
+form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
 }
-.form-container form input{
-  min-width: 150px;
-  padding: 10px 50px ;
-  margin-right: 3px;
-  border: 1px solid #bf40bf;
+
+input[type="text"] {
+  padding: 10px 20px;
+  border: 2px solid #bf40bf;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
 }
-.form-container form button{
-  padding: 10px 50px ;
+
+input[type="text"]:focus {
+  border-color: #7d2181;
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  border: 1px solid #d279d2;
-  background: #d279d2;
-  color: #fff;
+  transition: all 0.3s;
+}
 
-}
-.form-container form button:hover{
+/* Submit Button */
+form button {
   background-color: #bf40bf;
+  color: #fff;
 }
-.tasklists li{
-  min-width: 250px;
+
+form button:hover {
+  background-color: #7d2181;
+}
+
+/* Task list styles */
+.tasklists {
+  list-style: none;
+  padding: 0;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.tasklists li {
+  background-color: #fff;
+  padding: 12px 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+}
+
+/* Action buttons */
+.icon-edit {
+  background-color: #4a90e2;
+  color: #fff;
+  margin-right: 5px;
+}
+
+.icon-edit:hover {
+  background-color: #357ABD;
+}
+
+.icon-delete {
+  background-color: #e94b4b;
+  color: #fff;
+}
+
+.icon-delete:hover {
+  background-color: #c93030;
 }
