@@ -1,98 +1,198 @@
-/* Reset & base styles */
-body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f0f8ff, #e0eafc);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* ==== Reset & Theme ==== */
+:root{
+  --bg1:#0f172a;            /* slate-900 */
+  --bg2:#1e293b;            /* slate-800 */
+  --card:#0b1224cc;         /* glassy */
+  --text:#e5e7eb;           /* zinc-200 */
+  --muted:#94a3b8;          /* slate-400 */
+  --primary:#7c3aed;        /* violet-600 */
+  --primary-2:#a78bfa;      /* violet-300 */
+  --success:#16a34a;        /* green-600 */
+  --danger:#ef4444;         /* red-500 */
+  --warning:#f59e0b;        /* amber-500 */
+  --ring: rgba(124,58,237,.35);
 }
 
-/* Center everything */
-.form-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 50px;
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+  color:var(--text);
+  background: radial-gradient(1200px 800px at 10% -10%, #1b2440, transparent),
+              radial-gradient(1000px 800px at 110% 10%, #261b40, transparent),
+              linear-gradient(180deg, var(--bg1), var(--bg2));
 }
 
-/* Form styles */
-form {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 30px;
+/* ==== Layout ==== */
+.form-container{
+  max-width: 720px;
+  margin: 6rem auto;
+  padding: 2rem;
+  background: var(--card);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
 }
 
-input[type="text"] {
-  padding: 10px 20px;
-  border: 2px solid #bf40bf;
-  border-radius: 5px;
-  font-size: 16px;
+/* ==== Header / Empty state ==== */
+.form-container::before{
+  content: "My Tasks";
+  display:block;
+  font-size:1.25rem;
+  font-weight:700;
+  letter-spacing:.3px;
+  margin-bottom:1rem;
+  color: var(--primary-2);
+  text-shadow: 0 0 20px rgba(124,58,237,.25);
+}
+.form-container:has(.tasklists:empty)::after{
+  content:"No task found";
+  display:block;
+  margin-top:1rem;
+  color:var(--muted);
+}
+
+/* ==== Form ==== */
+form{
+  display:flex;
+  gap:.75rem;
+  align-items:center;
+  margin-bottom: 1.25rem;
+}
+input[type="text"]{
+  flex:1;
+  padding: .9rem 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
   outline: none;
-  transition: border-color 0.3s;
+  transition: box-shadow .2s ease, border-color .2s ease, background .2s ease;
+}
+input[type="text"]::placeholder{ color: #9aa5b1; }
+input[type="text"]:focus{
+  border-color: var(--primary);
+  box-shadow: 0 0 0 6px var(--ring), inset 0 1px 0 rgba(255,255,255,.05);
+  background: rgba(255,255,255,.06);
 }
 
-input[type="text"]:focus {
-  border-color: #7d2181;
+button{
+  padding: .85rem 1.1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: linear-gradient(180deg, #2b2242, #1f1634);
+  color: #f3f4f6;
+  font-weight: 600;
+  letter-spacing:.2px;
+  cursor:pointer;
+  transition: transform .06s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
+}
+button:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(0,0,0,.3);
+}
+button:active{ transform: translateY(0); }
+
+/* Primary submit button */
+form button[type="submit"]{
+  background: linear-gradient(180deg, var(--primary), #5b21b6);
+  border-color: rgba(124,58,237,.5);
+}
+form button[type="submit"]:hover{
+  background: linear-gradient(180deg, #8b5cf6, #4c1d95);
 }
 
-/* Buttons */
-button {
-  padding: 10px 20px;
-  font-size: 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s;
+/* ==== List ==== */
+.tasklists{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:grid;
+  gap:.75rem;
+}
+.tasklists li{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  align-items:center;
+  gap:.75rem;
+  padding: .9rem;
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 16px;
+  transition: background .2s ease, border-color .2s ease, transform .08s ease;
+}
+.tasklists li:hover{
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.12);
+  transform: translateY(-1px);
 }
 
-/* Submit Button */
-form button {
-  background-color: #bf40bf;
-  color: #fff;
+/* Title + index */
+.tasklists li .title{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  font-size: .98rem;
 }
-
-form button:hover {
-  background-color: #7d2181;
-}
-
-/* Task list styles */
-.tasklists {
-  list-style: none;
-  padding: 0;
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.tasklists li {
-  background-color: #fff;
-  padding: 12px 15px;
+.badge{
+  font-size:.75rem;
+  padding:.2rem .45rem;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 16px;
+  background: rgba(124,58,237,.18);
+  border:1px solid rgba(124,58,237,.35);
+  color: var(--primary-2);
 }
 
-/* Action buttons */
-.icon-edit {
-  background-color: #4a90e2;
-  color: #fff;
-  margin-right: 5px;
+/* Actions */
+.actions{
+  display:flex;
+  gap:.45rem;
+  flex-wrap: wrap;
+}
+.btn{
+  padding: .55rem .7rem;
+  border-radius: 10px;
+  font-size:.9rem;
+}
+.btn-edit{
+  background: linear-gradient(180deg, #1f2937, #0b1224);
+  border-color: rgba(148,163,184,.35);
+}
+.btn-edit:hover{ background: linear-gradient(180deg, #334155, #0b1224); }
+
+.btn-delete{
+  background: linear-gradient(180deg, #7f1d1d, #450a0a);
+  border-color: rgba(239,68,68,.55);
+}
+.btn-delete:hover{ background: linear-gradient(180deg, #991b1b, #3f0a0a); }
+
+.btn-complete{
+  background: linear-gradient(180deg, #14532d, #052e16);
+  border-color: rgba(22,163,74,.55);
+}
+.btn-complete:hover{ background: linear-gradient(180deg, #166534, #052e16); }
+
+/* Completed state */
+.completed .title{
+  text-decoration: line-through;
+  color: var(--muted);
+}
+.completed{
+  background: rgba(22,163,74,.08);
+  border-color: rgba(22,163,74,.25);
+}
+.completed .badge{
+  background: rgba(22,163,74,.18);
+  border-color: rgba(22,163,74,.4);
+  color:#86efac;
 }
 
-.icon-edit:hover {
-  background-color: #357ABD;
+/* Nice micro animation when items appear */
+@keyframes fadeUp{
+  from{opacity:0; transform: translateY(6px)}
+  to{opacity:1; transform: translateY(0)}
 }
-
-.icon-delete {
-  background-color: #e94b4b;
-  color: #fff;
-}
-
-.icon-delete:hover {
-  background-color: #c93030;
-}
+.tasklists li{ animation: fadeUp .18s ease both; }

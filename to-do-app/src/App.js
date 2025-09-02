@@ -1,16 +1,18 @@
   import "./App.css";
   import { useState } from "react";
 
-  const allTasks = [];
   function App() {
-    const [tasks, setTasks] = useState(allTasks);
+    const [tasks, setTasks] = useState([]);
     const [taskTitle, setTaskTitle] = useState("");
     const [editable, setEditable] = useState(false);
     const [editableTask, setEditableTask] = useState(null);
 
+    //Active when change in input
     const taskTitleHandler = (e) => {
       setTaskTitle(e.target.value);
     };
+    
+    //Active when form is submitted
     const formSubmitHandler = (e) => {
       e.preventDefault();
       if (!taskTitle.trim()) {
@@ -18,16 +20,21 @@
       }
       editable ? updateHandler() : createHandler();
     };
+
+    //Active when from is submitted and not editable
     const createHandler = () => {
       setTasks([
         ...tasks,
         {
           id: Date.now(),
           title: taskTitle,
+          isCompleted: false
         },
       ]);
       setTaskTitle("");
     };
+
+    //Active when update button is clicked and editable
     const updateHandler = () => {
       const updatedTask = tasks.map((task)=>{
         if(task.id === editableTask.id){
@@ -48,6 +55,8 @@
       setTaskTitle(task.title);
       setEditableTask(task);
     };
+
+    //When delete button is clicked
     const deleteTaskHandler = (taskID) => {
       setTasks(
         tasks.filter((task) => {
@@ -55,10 +64,16 @@
         })
       );
     };
-    const taskList = tasks.map((task) => {
+  
+    //Active when mark as completed button clicked
+    const completeTaskHandler =(taskID)=>{
+      
+    }
+
+    const taskList = tasks.map((task,index) => {
       return (
         <li key={task.id}>
-          {task.title}
+          {index+1 }. {task.title}
           <button
             className="icon-edit"
             onClick={() => editHandler(task)}
@@ -72,6 +87,14 @@
             }}
           >
             Delete
+          </button>
+          <button
+            className="icon-delete"
+            onClick={() => {
+              completeTaskHandler(task.id);
+            }}
+          >
+            Mark as Completed
           </button>
         </li>
       );
@@ -89,6 +112,7 @@
             <button type="submit">
               {editable ? "Update Task" : "Add new Task"}
             </button>
+            
           </form>
           {tasks.length === 0 && "No task found"}
           <ul className="tasklists">{taskList}</ul>
